@@ -1,16 +1,19 @@
 package com.progteamf.test.imagedownloader.model;
 
+import java.util.GregorianCalendar;
+import java.util.Objects;
+
 public class Image {
 
     private int id;
     private String link;
     private Status status;
-    private String time;
+    private GregorianCalendar time;
 
     public Image() {
     }
 
-    public Image(int id, String link, Status status, String time) {
+    public Image(int id, String link, Status status, GregorianCalendar time) {
         this.id = id;
         this.link = link;
         this.status = status;
@@ -41,11 +44,11 @@ public class Image {
         this.status = status;
     }
 
-    public String getTime() {
+    public GregorianCalendar getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(GregorianCalendar time) {
         this.time = time;
     }
 
@@ -57,5 +60,22 @@ public class Image {
                 ", status=" + status +
                 ", time='" + time + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Image image = (Image) o;
+        return id == image.id &&
+                Objects.equals(link, image.link) &&
+                status == image.status &&
+                Objects.equals(time, image.time);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, link, status, time);
     }
 }

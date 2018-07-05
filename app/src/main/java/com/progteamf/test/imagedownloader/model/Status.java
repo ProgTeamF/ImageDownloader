@@ -1,16 +1,23 @@
 package com.progteamf.test.imagedownloader.model;
 
+/**
+ * Created by N.Babiy on 7/5/2018.
+ */
+
 public enum Status {
 
-    DOWNLOADED, ERROR, UNKNOWN;
+    DOWNLOADED(1), ERROR(2), UNKNOWN(3);
 
+    private int id;
     private String message;
 
-    Status() {
+    Status(int id) {
+        this.id = id;
+
     }
 
-    Status(String message) {
-        this.message = message;
+    public int getId() {
+        return id;
     }
 
     public String getMessage() {
@@ -24,7 +31,8 @@ public enum Status {
     @Override
     public String toString() {
         return "Status{" +
-                "message='" + message + '\'' +
+                "id=" + id +
+                ", message='" + message + '\'' +
                 '}';
     }
 }
