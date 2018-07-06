@@ -2,7 +2,7 @@ package com.progteamf.test.imagedownloader.controller;
 
 import com.progteamf.test.imagedownloader.exceptions.SortException;
 import com.progteamf.test.imagedownloader.model.Image;
-import com.progteamf.test.imagedownloader.model.helper.SortType;
+import com.progteamf.test.imagedownloader.model.SortType;
 
 import java.util.Collections;
 import java.util.List;
