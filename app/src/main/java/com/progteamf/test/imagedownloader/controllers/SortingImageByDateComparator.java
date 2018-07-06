@@ -1,4 +1,4 @@
-package com.progteamf.test.imagedownloader.controller;
+package com.progteamf.test.imagedownloader.controllers;
 
 import com.progteamf.test.imagedownloader.model.Image;
 
