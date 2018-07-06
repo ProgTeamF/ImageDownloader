@@ -20,7 +20,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.progteamf.test.imagedownloader.R;
-import com.progteamf.test.imagedownloader.fragments.TestFragment;
 
 /**
  * Created by N.Babiy on 7/5/2018.
