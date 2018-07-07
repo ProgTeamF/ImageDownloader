@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.progteamf.test.imagedownloader.R;
 import com.progteamf.test.imagedownloader.adapters.HistoryAdapter;
 import com.progteamf.test.imagedownloader.controllers.SortingImageController;
+import com.progteamf.test.imagedownloader.db.ImageDAO;
 import com.progteamf.test.imagedownloader.exceptions.SortException;
 import com.progteamf.test.imagedownloader.model.Image;
 import com.progteamf.test.imagedownloader.model.SortType;
@@ -34,6 +35,9 @@ import com.progteamf.test.imagedownloader.utils.ItemDivider;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 /**
  * Created by N.Babiy on 7/5/2018.
@@ -64,7 +68,17 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
+        //initialization of Realm DB
+        initRealm();
+    }
 
+    private void initRealm() {
+        Realm.init(this);
+        RealmConfiguration realmConfig = new RealmConfiguration.Builder()
+                .name("progTeamF.realm")
+                .schemaVersion(0)
+                .build();
+        Realm.setDefaultConfiguration(realmConfig);
     }
 
     /**
@@ -132,19 +146,19 @@ public class MainActivity extends AppCompatActivity {
             // as you specify a parent activity in AndroidManifest.xml.
             int id = item.getItemId();
 
-            switch (id){
+            switch (id) {
                 case R.id.action_sort_by_date:
                     try {
                         images = SortingImageController.sort(images, SortType.SORT_BY_DATE);
                     } catch (SortException e) {
-                        Toast.makeText(getActivity(),e.getMessage(), Toast.LENGTH_SHORT);
+                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT);
                     }
                     break;
                 case R.id.action_sort_by_status:
                     try {
                         images = SortingImageController.sort(images, SortType.SORT_BY_STATUS);
                     } catch (SortException e) {
-                        Toast.makeText(getActivity(),e.getMessage(), Toast.LENGTH_SHORT);
+                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT);
                     }
                     break;
             }
@@ -189,16 +203,16 @@ public class MainActivity extends AppCompatActivity {
                 View rootView = inflater.inflate(R.layout.fragment_history, container, false);
                 setHasOptionsMenu(true);
 
-                images.add(new Image(1, "http://www.google.com", Status.ERROR, new GregorianCalendar(2018, 06, 5, 16, 30)));
-                images.add(new Image(2, "http://www.telegram.org", Status.UNKNOWN, new GregorianCalendar(2018, 06, 6, 16, 30)));
-                images.add(new Image(3, "http://www.vk.com", Status.UNKNOWN, new GregorianCalendar(2018, 06, 10, 16, 30)));
-                images.add(new Image(4, "http://www.instagram.com", Status.DOWNLOADED, new GregorianCalendar(2018, 06, 6, 14, 30)));
-                images.add(new Image(5, "http://www.facebook.com", Status.DOWNLOADED, new GregorianCalendar(2018, 06, 5, 16, 31)));
+                images.add(new Image("", "http://www.google.com", Status.ERROR, new GregorianCalendar(2018, 06, 5, 16, 30)));
+                images.add(new Image("", "http://www.telegram.org", Status.UNKNOWN, new GregorianCalendar(2018, 06, 6, 16, 30)));
+                images.add(new Image("", "http://www.vk.com", Status.UNKNOWN, new GregorianCalendar(2018, 06, 10, 16, 30)));
+                images.add(new Image("", "http://www.instagram.com", Status.DOWNLOADED, new GregorianCalendar(2018, 06, 6, 14, 30)));
+                images.add(new Image("", "http://www.facebook.com", Status.DOWNLOADED, new GregorianCalendar(2018, 06, 5, 16, 31)));
 
-                images.add(new Image(2, "http://www.telegram.org", Status.UNKNOWN, new GregorianCalendar(2018, 06, 6, 16, 30)));
-                images.add(new Image(3, "http://www.vk.com", Status.UNKNOWN, new GregorianCalendar(2018, 06, 10, 16, 30)));
-                images.add(new Image(4, "http://www.instagram.com", Status.DOWNLOADED, new GregorianCalendar(2018, 06, 6, 14, 30)));
-                images.add(new Image(5, "http://www.facebook.com", Status.DOWNLOADED, new GregorianCalendar(2018, 06, 5, 16, 31)));
+                images.add(new Image("", "http://www.telegram.org", Status.UNKNOWN, new GregorianCalendar(2018, 06, 6, 16, 30)));
+                images.add(new Image("", "http://www.vk.com", Status.UNKNOWN, new GregorianCalendar(2018, 06, 10, 16, 30)));
+                images.add(new Image("", "http://www.instagram.com", Status.DOWNLOADED, new GregorianCalendar(2018, 06, 6, 14, 30)));
+                images.add(new Image("", "http://www.facebook.com", Status.DOWNLOADED, new GregorianCalendar(2018, 06, 5, 16, 31)));
 
                 /** There is initialization of recyclerView which displays links*/
                 mRecyclerView = (RecyclerView) rootView.findViewById(R.id.history_recycler);
