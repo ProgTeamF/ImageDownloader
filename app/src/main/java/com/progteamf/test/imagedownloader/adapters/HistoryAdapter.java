@@ -9,11 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.progteamf.test.imagedownloader.R;
 import com.progteamf.test.imagedownloader.model.Image;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
@@ -56,8 +58,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull HistoryAdapter.ViewHolder holder, int position) {
-        Image current = imageList.get(position);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy hh:MM");
+        final Image current = imageList.get(position);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy kk:mm");
         holder.dateText.setText(dateFormat.format(current.getTime().getTime()));
         holder.linkText.setText(current.getLink());
         switch (current.getStatus()){
@@ -73,8 +75,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         }
     }
 
+
+
     @Override
     public int getItemCount() {
         return imageList.size();
     }
+
+
 }
