@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -229,6 +230,29 @@ public class MainActivity extends AppCompatActivity {
                 setHasOptionsMenu(false);
 
                 final EditText linkEdit = view.findViewById(R.id.link);
+                //set focus that was established by default
+                linkEdit.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        v.setFocusable(true);
+                        v.setFocusableInTouchMode(true);
+                        return false;
+                    }
+                });
+
+                //set EditText hints only when EditText get focused
+                linkEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View view, boolean hasFocus) {
+                        if (hasFocus) {
+                            linkEdit.setLongClickable(true);
+                            linkEdit.setHint("https://...");
+                        } else {
+                            linkEdit.setHint("");
+                        }
+                    }
+                });
+
                 Button ok = view.findViewById(R.id.ok_link);
                 final Intent openAppB = getContext().getPackageManager()
                         .getLaunchIntentForPackage("com.progteamf.test.imageviewer");
