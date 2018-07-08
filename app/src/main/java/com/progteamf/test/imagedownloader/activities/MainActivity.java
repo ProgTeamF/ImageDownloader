@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
         if (REALM_ISNT_INIT) {
             try {
                 initRealm();
-                defaultRealm = Realm.getDefaultInstance();
             } catch (IOException | IllegalArgumentException e) {
                 Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
@@ -114,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 .schemaVersion(0)
                 .build();
         Realm.setDefaultConfiguration(realmConfig);
+
     }
 
     @Override
@@ -130,6 +130,12 @@ public class MainActivity extends AppCompatActivity {
                         PlaceholderFragment.mRecyclerView.setAdapter(PlaceholderFragment.mAdapter);
                     }
                 });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        defaultRealm = Realm.getDefaultInstance();
     }
 
     @Override
