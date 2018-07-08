@@ -1,6 +1,7 @@
 package com.progteamf.test.imagedownloader.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +23,13 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     private Context context;
     private List<Image> imageList;
+
+    private final String HISTORY_TAG = "history_tab";
+    private final String ID_TAG = "id_image";
+    private final String LINK_TAG = "link_tag";
+    private final String STATUS_ID_TAG = "status_id_image";
+    private final String STATUS_MESSAGE_TAG = "status_message_image";
+    private final String DATA_TAG = "data_image";
 
     public HistoryAdapter(Context context,List<Image> imageList) {
         this.imageList = imageList;
@@ -73,6 +81,21 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
                 holder.parent.setBackgroundColor(ContextCompat.getColor(context, R.color.lightGray));
                 break;
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openAppB = context.getPackageManager()
+                        .getLaunchIntentForPackage("com.progteamf.test.imageviewer");
+                openAppB.addCategory(HISTORY_TAG);
+                openAppB.putExtra(ID_TAG, current.getId());
+                openAppB.putExtra(LINK_TAG, current.getLink());
+                openAppB.putExtra(STATUS_ID_TAG, current.getStatus().getId());
+                openAppB.putExtra(STATUS_MESSAGE_TAG, current.getStatus().getMessage());
+                openAppB.putExtra(DATA_TAG, new SimpleDateFormat("dd/MM/yyyy kk:mm").format(current.getTime().getTime()));
+                context.startActivity(openAppB);
+            }
+        });
     }
 
 
