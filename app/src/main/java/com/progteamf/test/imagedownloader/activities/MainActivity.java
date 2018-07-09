@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -48,6 +49,8 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import io.realm.OrderedRealmCollection;
+import io.realm.OrderedRealmCollectionSnapshot;
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmConfiguration;
@@ -116,21 +119,37 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-
-        defaultRealm.where(ImageRealmObject.class)
-                .findAllAsync()
-                .addChangeListener(new RealmChangeListener() {
-                    @Override
-                    public void onChange(Object o) {
-                        PlaceholderFragment.images = new ImageDAO().readAll();
-                        PlaceholderFragment.mAdapter = new HistoryAdapter(getApplicationContext(), PlaceholderFragment.images);
-                        PlaceholderFragment.mRecyclerView.setAdapter(PlaceholderFragment.mAdapter);
-                    }
-                });
-    }
+//    @Override
+//    protected void onRestart() {
+//        super.onRestart();
+//
+//        defaultRealm.where(ImageRealmObject.class)
+//                .findAllAsync()
+//                .addChangeListener(new RealmChangeListener<RealmResults<ImageRealmObject>>() {
+//                    @Override
+//                    public void onChange(RealmResults<ImageRealmObject> imageRealmObjects) {
+//                        PlaceholderFragment.images = new ImageDAO().readAll();
+//                        PlaceholderFragment.mAdapter = new HistoryAdapter(getApplicationContext(), PlaceholderFragment.images);
+//                        PlaceholderFragment.mRecyclerView.setAdapter(PlaceholderFragment.mAdapter);
+//                    }
+//                });
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//
+//        defaultRealm.where(ImageRealmObject.class)
+//                .findAllAsync()
+//                .addChangeListener(new RealmChangeListener<RealmResults<ImageRealmObject>>() {
+//                    @Override
+//                    public void onChange(RealmResults<ImageRealmObject> imageRealmObjects) {
+//                        PlaceholderFragment.images = new ImageDAO().readAll();
+//                        PlaceholderFragment.mAdapter = new HistoryAdapter(getApplicationContext(), PlaceholderFragment.images);
+//                        PlaceholderFragment.mRecyclerView.setAdapter(PlaceholderFragment.mAdapter);
+//                    }
+//                });
+//    }
 
     @Override
     protected void onStart() {
@@ -206,21 +225,21 @@ public class MainActivity extends AppCompatActivity {
             switch (id) {
                 case R.id.action_sort_by_date:
                     try {
-                        images = SortingImageController.sort(images, SortType.SORT_BY_DATE);
+                        HistoryAdapter.imageList = SortingImageController.sort(HistoryAdapter.imageList, SortType.SORT_BY_DATE);
                     } catch (SortException e) {
                         Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT);
                     }
                     break;
                 case R.id.action_sort_by_status:
                     try {
-                        images = SortingImageController.sort(images, SortType.SORT_BY_STATUS);
+                        HistoryAdapter.imageList = SortingImageController.sort(HistoryAdapter.imageList, SortType.SORT_BY_STATUS);
                     } catch (SortException e) {
                         Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT);
                     }
                     break;
             }
 
-            mAdapter = new HistoryAdapter(getContext(), images);
+            mAdapter = new HistoryAdapter(getContext(), HistoryAdapter.imageList);
             mRecyclerView.setAdapter(mAdapter);
 
             return super.onOptionsItemSelected(item);
@@ -284,8 +303,6 @@ public class MainActivity extends AppCompatActivity {
                 View rootView = inflater.inflate(R.layout.fragment_history, container, false);
                 setHasOptionsMenu(true);
 
-                images = new ImageDAO().readAll();
-
                 /** There is initialization of recyclerView which displays links*/
                 mRecyclerView = (RecyclerView) rootView.findViewById(R.id.history_recycler);
 
@@ -302,21 +319,33 @@ public class MainActivity extends AppCompatActivity {
                 mRecyclerView.setLayoutManager(mLayoutManager);
 
                 // specify an adapter
-                mAdapter = new HistoryAdapter(getContext(), images);
+                images = new ImageDAO().readAll();
+                mAdapter = new HistoryAdapter(getContext(), new ImageDAO().readAll());
+
 
                 //setting adapter
                 mRecyclerView.setAdapter(mAdapter);
 
-                defaultRealm.where(ImageRealmObject.class)
-                        .findAllAsync()
-                        .addChangeListener(new RealmChangeListener() {
-                            @Override
-                            public void onChange(Object o) {
-                                PlaceholderFragment.images = new ImageDAO().readAll();
-                                PlaceholderFragment.mAdapter = new HistoryAdapter(getActivity().getApplicationContext(), PlaceholderFragment.images);
-                                PlaceholderFragment.mRecyclerView.setAdapter(PlaceholderFragment.mAdapter);
-                            }
-                        });
+                final Handler handler = new Handler();
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        defaultRealm.where(ImageRealmObject.class)
+                                .findAllAsync()
+                                .addChangeListener(new RealmChangeListener<RealmResults<ImageRealmObject>>() {
+                                    @Override
+                                    public void onChange(RealmResults<ImageRealmObject> imageRealmObjects) {
+                                        if (!new ImageDAO().readAll().equals(images)) {
+                                            images = new ImageDAO().readAll();
+                                            HistoryAdapter.imageList = new ImageDAO().readAll();
+                                            mAdapter = new HistoryAdapter(getActivity().getApplicationContext(), HistoryAdapter.imageList);
+                                            mRecyclerView.setAdapter(PlaceholderFragment.mAdapter);
+                                        }
+                                    }
+                                });
+                        handler.postDelayed(this, 1500);
+                    }
+                });
 
                 return rootView;
             } else return null;

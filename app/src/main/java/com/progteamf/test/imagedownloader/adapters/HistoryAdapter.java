@@ -22,7 +22,7 @@ import java.util.List;
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
 
     private Context context;
-    private List<Image> imageList;
+    static public List<Image> imageList;
 
     private final String HISTORY_TAG = "history_tab";
     private final String ID_TAG = "id_image";
