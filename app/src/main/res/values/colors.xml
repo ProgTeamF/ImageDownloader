@@ -2,9 +2,9 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-
-    <color name="lightGreen">#ab3a8436</color>
-    <color name="lightRed">#ab843636</color>
-    <color name="lightGray">#ab363535</color>
+    <color name="colorAccent">#862ed4</color>
+    <color name="lightGreen">#17a546</color>
+    <color name="lightRed">#c41818</color>
+    <color name="lightGray">#555050</color>
+    <color name="background_material_dark">#303030</color>
 </resources>

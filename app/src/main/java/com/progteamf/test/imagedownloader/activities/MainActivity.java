@@ -27,8 +27,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.progteamf.test.imagedownloader.R;
@@ -118,38 +118,6 @@ public class MainActivity extends AppCompatActivity {
         Realm.setDefaultConfiguration(realmConfig);
 
     }
-
-//    @Override
-//    protected void onRestart() {
-//        super.onRestart();
-//
-//        defaultRealm.where(ImageRealmObject.class)
-//                .findAllAsync()
-//                .addChangeListener(new RealmChangeListener<RealmResults<ImageRealmObject>>() {
-//                    @Override
-//                    public void onChange(RealmResults<ImageRealmObject> imageRealmObjects) {
-//                        PlaceholderFragment.images = new ImageDAO().readAll();
-//                        PlaceholderFragment.mAdapter = new HistoryAdapter(getApplicationContext(), PlaceholderFragment.images);
-//                        PlaceholderFragment.mRecyclerView.setAdapter(PlaceholderFragment.mAdapter);
-//                    }
-//                });
-//    }
-//
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//
-//        defaultRealm.where(ImageRealmObject.class)
-//                .findAllAsync()
-//                .addChangeListener(new RealmChangeListener<RealmResults<ImageRealmObject>>() {
-//                    @Override
-//                    public void onChange(RealmResults<ImageRealmObject> imageRealmObjects) {
-//                        PlaceholderFragment.images = new ImageDAO().readAll();
-//                        PlaceholderFragment.mAdapter = new HistoryAdapter(getApplicationContext(), PlaceholderFragment.images);
-//                        PlaceholderFragment.mRecyclerView.setAdapter(PlaceholderFragment.mAdapter);
-//                    }
-//                });
-//    }
 
     @Override
     protected void onStart() {
@@ -278,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-                Button ok = view.findViewById(R.id.ok_link);
+                ImageButton ok = view.findViewById(R.id.ok_link);
                 final Intent openAppB = getContext().getPackageManager()
                         .getLaunchIntentForPackage("com.progteamf.test.imageviewer");
                 ok.setOnClickListener(new View.OnClickListener() {
