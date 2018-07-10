@@ -252,12 +252,12 @@ public class MainActivity extends AppCompatActivity {
                 ok.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
                         String link = linkEdit.getText().toString().trim();
-                        if (openAppB != null & link.length() > 4) {
+                        if (openAppB != null & link.length() > 0) {
                             openAppB.addCategory(APP_A_URL_TAG);
                             openAppB.putExtra(LINK_TAG, link);
                             startActivity(openAppB);
                         } else {
-                            Toast.makeText(getContext(), "NULL", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "Please, enter your link...", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
