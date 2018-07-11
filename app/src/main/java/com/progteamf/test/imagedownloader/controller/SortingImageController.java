@@ -1,6 +1,6 @@
-package com.progteamf.test.imagedownloader.controllers;
+package com.progteamf.test.imagedownloader.controller;
 
-import com.progteamf.test.imagedownloader.exceptions.SortException;
+import com.progteamf.test.imagedownloader.exception.SortException;
 import com.progteamf.test.imagedownloader.model.Image;
 import com.progteamf.test.imagedownloader.model.SortType;
 

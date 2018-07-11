@@ -1,4 +1,4 @@
-package com.progteamf.test.imagedownloader.exceptions;
+package com.progteamf.test.imagedownloader.exception;
 
 /**
  * Created by N.Babiy on 7/5/2018.

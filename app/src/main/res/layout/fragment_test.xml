@@ -5,35 +5,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/text_input_layout"
+
+    <ScrollView
+
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="250dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="160dp">
+        android:layout_marginTop="150dp">
 
-        <EditText
-            android:id="@+id/link"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:focusable="false"
-            android:hint="Enter your link here"
-            android:longClickable="false"
-            android:textAlignment="viewStart" />
+            android:layout_height="wrap_content">
 
-    </android.support.design.widget.TextInputLayout>
+            <EditText
+                android:id="@+id/link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:focusable="false"
+                android:hint="Enter your link here"
+                android:longClickable="false"
+                android:textAlignment="viewStart" />
 
+        </android.support.design.widget.TextInputLayout>
+    </ScrollView>
 
     <ImageButton
         android:id="@+id/ok_link"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/text_input_layout"
+        android:layout_below="@+id/scrollView"
         android:layout_centerHorizontal="true"
         android:background="@null"
         app:srcCompat="@drawable/btn_ok_click" />

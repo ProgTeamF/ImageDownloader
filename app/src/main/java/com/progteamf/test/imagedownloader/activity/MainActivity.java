@@ -1,4 +1,4 @@
-package com.progteamf.test.imagedownloader.activities;
+package com.progteamf.test.imagedownloader.activity;
 
 import android.Manifest;
 import android.content.Intent;
@@ -32,25 +32,20 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.progteamf.test.imagedownloader.R;
-import com.progteamf.test.imagedownloader.adapters.HistoryAdapter;
-import com.progteamf.test.imagedownloader.controllers.SortingImageController;
+import com.progteamf.test.imagedownloader.adapter.HistoryAdapter;
+import com.progteamf.test.imagedownloader.controller.SortingImageController;
 import com.progteamf.test.imagedownloader.db.ImageDAO;
-import com.progteamf.test.imagedownloader.db.ImageHelper;
 import com.progteamf.test.imagedownloader.db.model.ImageRealmObject;
-import com.progteamf.test.imagedownloader.exceptions.SortException;
+import com.progteamf.test.imagedownloader.exception.SortException;
 import com.progteamf.test.imagedownloader.model.Image;
 import com.progteamf.test.imagedownloader.model.SortType;
-import com.progteamf.test.imagedownloader.model.Status;
 import com.progteamf.test.imagedownloader.utils.ItemDivider;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
 
-import io.realm.OrderedRealmCollection;
-import io.realm.OrderedRealmCollectionSnapshot;
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmConfiguration;

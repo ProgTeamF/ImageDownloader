@@ -1,4 +1,4 @@
-package com.progteamf.test.imagedownloader.adapters;
+package com.progteamf.test.imagedownloader.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,13 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.progteamf.test.imagedownloader.R;
 import com.progteamf.test.imagedownloader.model.Image;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
